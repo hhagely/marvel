@@ -1,86 +1,69 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider, Query } from 'react-apollo';
-import gql from 'graphql-tag';
-import logo from './logo.svg';
+import { Link } from 'react-router-dom';
+import { Layout, Menu } from 'antd';
+
+// import logo from './logo.svg';
 import './App.css';
 
-const client = new ApolloClient({
-	uri: 'http://localhost:4000/'
-});
+const { Header, Content, Footer } = Layout;
 
 class App extends Component {
-	componentDidMount() {}
+	constructor(props) {
+		super(props);
 
-	renderCharacters() {
-		return (
-			<Query
-				query={gql`
-					{
-						getCharacters {
-							id
-							name
-							description
-							modified
-							resourceUri
-							urls {
-								type
-								url
-							}
-							thumbnail {
-								path
-								extension
-							}
-							comics {
-								items {
-									name
-								}
-							}
-							stories {
-								items {
-									name
-								}
-							}
-							events {
-								items {
-									name
-								}
-							}
-							series {
-								items {
-									name
-								}
-							}
-						}
-					}
-				`}
-			>
-				{({ loading, error, data }) => {
-					if (loading) return <p>Loading...</p>;
-					if (error) return <p>Error :(</p>;
-
-					console.log(data);
-					return <div>Loaded! Check console for data</div>;
-				}}
-			</Query>
-		);
+		this.state = {
+			currentKey: 'characters'
+		};
 	}
 
 	render() {
 		return (
-			<ApolloProvider client={client}>
-				<div className="App">
-					<header className="App-header">
+			<div className="App">
+				<Layout className="layout">
+					<Header>
+						{/* <h1>Marvel Graphql</h1> */}
+						<Menu
+							mode="horizontal"
+							selectedKeys={[this.state.currentKey]}
+							onClick={(e) => this.setState({ currentKey: e.key })}
+						>
+							<Menu.Item key="home">
+								<Link to="/">Home</Link>
+							</Menu.Item>
+							<Menu.Item key="characters">
+								<Link to="/characters">Characters</Link>
+							</Menu.Item>
+							<Menu.Item key="comics">
+								<Link to="/comics">Comics</Link>
+							</Menu.Item>
+							<Menu.Item key="events">
+								<Link to="/events">Events</Link>
+							</Menu.Item>
+							<Menu.Item key="about">
+								<Link to="/about">About</Link>
+							</Menu.Item>
+						</Menu>
+						{/* <img src={logo} className="App-logo" alt="logo" />
+							<h1 className="App-title">Welcome to React</h1> */}
+					</Header>
+					<Content>
+						<div>{this.props.children}</div>
+					</Content>
+					<Footer style={{ textAlign: 'center' }}>
+						<p>This is the footer</p>
+					</Footer>
+				</Layout>
+				{/* <header className="App-header">
 						<img src={logo} className="App-logo" alt="logo" />
 						<h1 className="App-title">Welcome to React</h1>
-					</header>
-					<p className="App-intro">
+					</header> */}
+
+				{/* <p className="App-intro">
 						To get started, edit <code>src/App.js</code> and save to reload.
+						<Button type="primary">Button</Button>
 					</p>
-					{this.renderCharacters()}
-				</div>
-			</ApolloProvider>
+					{this.renderCharacters()} */}
+			</div>
 		);
 	}
 }
