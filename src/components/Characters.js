@@ -28,7 +28,7 @@ class Characters extends Component {
 							onChange: (page) => {
 								fetchMore({
 									variables: {
-										offset: page * limit,
+										offset: (page - 1) * limit,
 										limit
 									},
 									updateQuery: (prev, { fetchMoreResult }) => {
