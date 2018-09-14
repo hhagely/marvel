@@ -30,7 +30,7 @@ class NameFilter extends Component {
 									<a
 										onClick={(e) => {
 											console.log(e);
-											this.setState({ currentFilter: e.target.text });
+											this.props.onFilter(e.target.text);
 										}}
 									>
 										{letter.toUpperCase()}

@@ -1,22 +1,30 @@
 import React, { Component } from 'react';
+import { Route, Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import { List, Row, Col } from 'antd';
-import NameFilter from './NameFilter';
+import { List, Row, Col, Card, Icon } from 'antd';
+import NameFilter from '../NameFilter';
 
-class Characters extends Component {
+class CharacterList extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			nameStartsWith: null,
 			limit: 20,
-			offset: 0
+			offset: 0,
+			loading: false
 		};
 	}
 
+	handleRefetch(filter, refetchFunction) {
+		this.setState({ nameStartsWith: filter });
+		refetchFunction({ nameStartsWith: filter });
+	}
+
 	renderCharacters(characters, fetchMore) {
-		const { limit } = this.state;
+		const { limit, nameStartsWith } = this.state;
+		const { match } = this.props;
 
 		return (
 			<Row type="flex" justify="space-around">
@@ -29,7 +37,8 @@ class Characters extends Component {
 								fetchMore({
 									variables: {
 										offset: (page - 1) * limit,
-										limit
+										limit,
+										nameStartsWith
 									},
 									updateQuery: (prev, { fetchMoreResult }) => {
 										if (!fetchMoreResult) return prev;
@@ -38,7 +47,7 @@ class Characters extends Component {
 									}
 								});
 							},
-							pageSize: 20,
+							pageSize: this.state.limit,
 							pageSizeOptions: ['10', '20', '50', '100'],
 							showSizeChanger: true,
 							total: characters.data.total,
@@ -50,7 +59,30 @@ class Characters extends Component {
 						dataSource={characters.data.results}
 						renderItem={(item) => (
 							<List.Item key={item.id}>
-								<List.Item.Meta title={item.name} />
+								<Card
+									style={{ textAlign: 'center' }}
+									loading={this.state.loading}
+									cover={
+										<img
+											alt={item.name}
+											src={`${item.thumbnail.path}/portrait_fantastic.${
+												item.thumbnail.extension
+											}`}
+										/>
+									}
+									actions={[
+										<Link to={`${match.url}/${item.id}/comics`}>
+											<Icon type="file-text" />
+										</Link>,
+										<Link to={`${match.url}/${item.id}/events`}>
+											<Icon type="exclamation-circle" theme="outlined" />
+										</Link>,
+										<Link to={`${match.url}/${item.id}`}>
+											<Icon type="info-circle" theme="twoTone" />
+										</Link>
+									]}
+									title={item.name}
+								/>
 							</List.Item>
 						)}
 					/>
@@ -88,33 +120,9 @@ class Characters extends Component {
 									description
 									modified
 									resourceUri
-									urls {
-										type
-										url
-									}
 									thumbnail {
 										path
 										extension
-									}
-									comics {
-										items {
-											name
-										}
-									}
-									stories {
-										items {
-											name
-										}
-									}
-									events {
-										items {
-											name
-										}
-									}
-									series {
-										items {
-											name
-										}
 									}
 								}
 							}
@@ -123,12 +131,19 @@ class Characters extends Component {
 				`}
 				variables={{ nameStartsWith, limit, offset }}
 			>
-				{({ loading, error, data, fetchMore }) => {
+				{({ loading, error, data, refetch, fetchMore }) => {
 					if (loading) return <p>Loading...</p>;
 					if (error) return <p>Error :(</p>;
 
 					return (
-						<div>{this.renderCharacters(data.getCharacters, fetchMore)}</div>
+						<div>
+							<div>
+								<NameFilter
+									onFilter={(filter) => this.handleRefetch(filter, refetch)}
+								/>
+							</div>
+							{this.renderCharacters(data.getCharacters, fetchMore)}
+						</div>
 					);
 				}}
 			</Query>
@@ -137,15 +152,8 @@ class Characters extends Component {
 
 	render() {
 		console.log('calling render');
-		return (
-			<div>
-				<div>
-					<NameFilter />
-				</div>
-				{this.getCharacters()}
-			</div>
-		);
+		return <div>{this.getCharacters()}</div>;
 	}
 }
 
-export default Characters;
+export default CharacterList;

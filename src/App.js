@@ -21,7 +21,6 @@ class App extends Component {
 			<div className="App">
 				<Layout className="layout">
 					<Header>
-						{/* <h1>Marvel Graphql</h1> */}
 						<Menu
 							mode="horizontal"
 							selectedKeys={[this.state.currentKey]}
@@ -43,8 +42,6 @@ class App extends Component {
 								<Link to="/about">About</Link>
 							</Menu.Item>
 						</Menu>
-						{/* <img src={logo} className="App-logo" alt="logo" />
-							<h1 className="App-title">Welcome to React</h1> */}
 					</Header>
 					<Content>
 						<div>{this.props.children}</div>
@@ -53,16 +50,6 @@ class App extends Component {
 						<p>This is the footer</p>
 					</Footer>
 				</Layout>
-				{/* <header className="App-header">
-						<img src={logo} className="App-logo" alt="logo" />
-						<h1 className="App-title">Welcome to React</h1>
-					</header> */}
-
-				{/* <p className="App-intro">
-						To get started, edit <code>src/App.js</code> and save to reload.
-						<Button type="primary">Button</Button>
-					</p>
-					{this.renderCharacters()} */}
 			</div>
 		);
 	}
