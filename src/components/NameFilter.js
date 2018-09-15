@@ -12,37 +12,39 @@ class NameFilter extends Component {
 		const alphabet = Array.from('abcdefghijklmnopqrstuvwxyz'.split(''));
 
 		return (
-			<div>
-				<Row gutter={16} type="flex" justify="space-around">
-					<Col />
-					<Col>
-						{alphabet.map((letter) => {
-							if (letter === 'z') {
-								return (
-									<a key={letter} onClick={(e) => console.log(e)}>
-										{letter.toUpperCase()}
-									</a>
-								);
-							}
-
+			// <div>
+			<Row gutter={16} type="flex" justify="space-around">
+				<Col />
+				<Col>
+					{alphabet.map((letter) => {
+						if (letter === 'z') {
 							return (
-								<div style={{ float: 'left' }} key={letter}>
-									<a
-										onClick={(e) => {
-											console.log(e);
-											this.props.onFilter(e.target.text);
-										}}
-									>
-										{letter.toUpperCase()}
-									</a>
-									<Divider type="vertical" />
-								</div>
+								<a
+									key={letter}
+									onClick={(e) => this.props.onFilter(e.target.text)}
+									style={{ fontSize: 24 }}
+								>
+									{letter.toUpperCase()}
+								</a>
 							);
-						})}
-					</Col>
-					<Col />
-				</Row>
-			</div>
+						}
+
+						return (
+							<div style={{ float: 'left' }} key={letter}>
+								<a
+									onClick={(e) => this.props.onFilter(e.target.text)}
+									style={{ fontSize: 24 }}
+								>
+									{letter.toUpperCase()}
+								</a>
+								<Divider type="vertical" />
+							</div>
+						);
+					})}
+				</Col>
+				<Col />
+			</Row>
+			// </div>
 		);
 	}
 }

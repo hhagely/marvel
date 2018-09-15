@@ -72,10 +72,10 @@ class CharacterList extends Component {
 									}
 									actions={[
 										<Link to={`${match.url}/${item.id}/comics`}>
-											<Icon type="file-text" />
+											<Icon type="file-text" theme="twoTone" />
 										</Link>,
 										<Link to={`${match.url}/${item.id}/events`}>
-											<Icon type="exclamation-circle" theme="outlined" />
+											<Icon type="exclamation-circle" theme="twoTone" />
 										</Link>,
 										<Link to={`${match.url}/${item.id}`}>
 											<Icon type="info-circle" theme="twoTone" />
@@ -135,9 +135,14 @@ class CharacterList extends Component {
 					if (loading) return <p>Loading...</p>;
 					if (error) return <p>Error :(</p>;
 
+					let nameFilter = {
+						paddingTop: 20,
+						paddingBottom: 20
+					};
+
 					return (
 						<div>
-							<div>
+							<div style={nameFilter}>
 								<NameFilter
 									onFilter={(filter) => this.handleRefetch(filter, refetch)}
 								/>
@@ -151,7 +156,6 @@ class CharacterList extends Component {
 	}
 
 	render() {
-		console.log('calling render');
 		return <div>{this.getCharacters()}</div>;
 	}
 }
