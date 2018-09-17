@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@reach/router';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { List, Row, Col, Card, Icon } from 'antd';
 
 import NameFilter from '../NameFilter';
-import RouteWithSubRoutes from '../RouteWithSubRoutes';
 
 class CharacterList extends Component {
 	constructor(props) {
@@ -26,7 +25,6 @@ class CharacterList extends Component {
 
 	renderCharacters(characters, fetchMore) {
 		const { limit, nameStartsWith } = this.state;
-		const { match } = this.props;
 
 		return (
 			<Row type="flex" justify="space-around">
@@ -73,13 +71,13 @@ class CharacterList extends Component {
 										/>
 									}
 									actions={[
-										<Link to={`${match.url}/${item.id}/comics`}>
+										<Link to={`/characters/${item.id}/comics`}>
 											<Icon type="file-text" theme="twoTone" />
 										</Link>,
-										<Link to={`${match.url}/${item.id}/events`}>
+										<Link to={`/characters/${item.id}/events`}>
 											<Icon type="exclamation-circle" theme="twoTone" />
 										</Link>,
-										<Link to={`${match.url}/${item.id}`}>
+										<Link to={`/characters/${item.id}`}>
 											<Icon type="info-circle" theme="twoTone" />
 										</Link>
 									]}
@@ -158,16 +156,7 @@ class CharacterList extends Component {
 	}
 
 	render() {
-		console.log('character list props: ', JSON.stringify(this.props));
-		console.log('character list routes: ', JSON.stringify(this.props.routes));
-		return (
-			<div>
-				{this.getCharacters()}
-				{this.props.routes.map((route) => (
-					<RouteWithSubRoutes key={route.path} {...route} />
-				))}
-			</div>
-		);
+		return <div>{this.getCharacters()}</div>;
 	}
 }
 
