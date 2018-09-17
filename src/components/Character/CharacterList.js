@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { List, Row, Col, Card, Icon } from 'antd';
+
 import NameFilter from '../NameFilter';
+import RouteWithSubRoutes from '../RouteWithSubRoutes';
 
 class CharacterList extends Component {
 	constructor(props) {
@@ -156,7 +158,16 @@ class CharacterList extends Component {
 	}
 
 	render() {
-		return <div>{this.getCharacters()}</div>;
+		console.log('character list props: ', JSON.stringify(this.props));
+		console.log('character list routes: ', JSON.stringify(this.props.routes));
+		return (
+			<div>
+				{this.getCharacters()}
+				{this.props.routes.map((route) => (
+					<RouteWithSubRoutes key={route.path} {...route} />
+				))}
+			</div>
+		);
 	}
 }
 
