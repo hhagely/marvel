@@ -1,11 +1,18 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
 import App from '../App';
 import { render } from 'react-testing-library';
+import {
+	createHistory,
+	createMemorySource,
+	LocationProvider
+} from '@reach/router';
 
 it('renders without crashing', () => {
-	// const div = document.createElement('div');
-	const { debug } = render(<App />);
-	// ReactDOM.unmountComponentAtNode(div);
+	let testHistory = createHistory(createMemorySource('/'));
+	const { debug } = render(
+		<LocationProvider history={testHistory}>
+			<App />
+		</LocationProvider>
+	);
 	debug();
 });
