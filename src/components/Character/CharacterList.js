@@ -6,7 +6,40 @@ import { List, Row, Col, Card, Icon } from 'antd';
 
 import NameFilter from '../NameFilter';
 
-class CharacterList extends Component {
+export const GET_CHARACTERS_QUERY = gql`
+	query getChars($nameStartsWith: String, $limit: Int, $offset: Int) {
+		getCharacters(
+			nameStartsWith: $nameStartsWith
+			limit: $limit
+			offset: $offset
+		) {
+			code
+			status
+			copyright
+			attributionText
+			attributionHTML
+			data {
+				offset
+				limit
+				total
+				count
+				results {
+					id
+					name
+					description
+					modified
+					resourceUri
+					thumbnail {
+						path
+						extension
+					}
+				}
+			}
+		}
+	}
+`;
+
+export default class CharacterList extends Component {
 	constructor(props) {
 		super(props);
 
@@ -97,38 +130,7 @@ class CharacterList extends Component {
 
 		return (
 			<Query
-				query={gql`
-					query getChars($nameStartsWith: String, $limit: Int, $offset: Int) {
-						getCharacters(
-							nameStartsWith: $nameStartsWith
-							limit: $limit
-							offset: $offset
-						) {
-							code
-							status
-							copyright
-							attributionText
-							attributionHTML
-							data {
-								offset
-								limit
-								total
-								count
-								results {
-									id
-									name
-									description
-									modified
-									resourceUri
-									thumbnail {
-										path
-										extension
-									}
-								}
-							}
-						}
-					}
-				`}
+				query={GET_CHARACTERS_QUERY}
 				variables={{ nameStartsWith, limit, offset }}
 			>
 				{({ loading, error, data, refetch, fetchMore }) => {
@@ -160,4 +162,4 @@ class CharacterList extends Component {
 	}
 }
 
-export default CharacterList;
+// export default CharacterList;

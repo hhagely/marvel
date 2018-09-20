@@ -20,6 +20,7 @@ class NameFilter extends Component {
 						if (letter === 'z') {
 							return (
 								<a
+									data-testid={`filter-${letter}`}
 									key={letter}
 									onClick={(e) => this.props.onFilter(e.target.text)}
 									style={{ fontSize: 24 }}
@@ -32,6 +33,7 @@ class NameFilter extends Component {
 						return (
 							<div style={{ float: 'left' }} key={letter}>
 								<a
+									data-testid={`filter-${letter}`}
 									onClick={(e) => this.props.onFilter(e.target.text)}
 									style={{ fontSize: 24 }}
 								>
