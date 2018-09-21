@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-// import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { Router, Link } from '@reach/router';
 import { Layout, Menu } from 'antd';
-// import routes from './Routes';
 
 import './App.css';
-// import RouteWithSubRoutes from './components/RouteWithSubRoutes';
 import Home from './components/Home';
 import Character from './components/Character/Character';
 import CharacterList from './components/Character/CharacterList';
@@ -37,19 +34,19 @@ class App extends Component {
 						onClick={(e) => this.setState({ currentKey: e.key })}
 						style={{ lineHeight: '64px' }}
 					>
-						<Menu.Item key="home">
+						<Menu.Item key="home" data-testid={`test-home`}>
 							<Link to="/">Home</Link>
 						</Menu.Item>
-						<Menu.Item key="characters">
+						<Menu.Item key="characters" data-testid={`test-characters`}>
 							<Link to="/characters">Characters</Link>
 						</Menu.Item>
-						<Menu.Item key="comics">
+						<Menu.Item key="comics" data-testid={`test-comics`}>
 							<Link to="/comics">Comics</Link>
 						</Menu.Item>
-						<Menu.Item key="events">
+						<Menu.Item key="events" data-testid={`test-events`}>
 							<Link to="/events">Events</Link>
 						</Menu.Item>
-						<Menu.Item key="about">
+						<Menu.Item key="about" data-testid={`test-about`}>
 							<Link to="/about">About</Link>
 						</Menu.Item>
 					</Menu>

@@ -45,11 +45,13 @@ class Character extends Component {
 			<Query query={GET_CHARACTER_QUERY} variables={{ characterId }}>
 				{({ loading, error, data }) => {
 					if (loading) return <p>Loading...</p>;
-					if (error) return <p>Error...</p>;
-					debugger;
-					console.log(data);
+					if (error) return <p>Error!</p>;
 					// return <div>{JSON.stringify(data)}</div>;
-					return <div>Finished loading data!</div>;
+					return (
+						<div>
+							<p>Finished loading data!</p>
+						</div>
+					);
 				}}
 			</Query>
 		);

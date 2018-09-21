@@ -7,5 +7,6 @@ module.exports = {
 	displayName: 'client',
 	testPathIgnorePatterns: ['/node_modules/'],
 	setupTestFrameworkScriptFile: require.resolve('./jest.setup.js'),
-	modulePaths: ['<rootDir>/src']
+	modulePaths: ['<rootDir>/src'],
+	collectCoverageFrom: ['src/**/*.js']
 };
