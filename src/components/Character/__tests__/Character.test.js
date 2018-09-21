@@ -1,6 +1,8 @@
 import React from 'react';
-import { render, fireEvent } from 'react-testing-library';
+import { render, wait } from 'react-testing-library';
 import { MockedProvider } from 'react-apollo/test-utils';
+import 'jest-dom/extend-expect';
+import 'react-testing-library/cleanup-after-each';
 
 import Character, { GET_CHARACTER_QUERY } from '../Character';
 
@@ -50,14 +52,26 @@ const mocks = [
 	}
 ];
 
-test('it calls the graphql server with the provided char id', () => {
-	const getCharacter = jest.fn();
-
+test('it renders the component without crashing', () => {
 	render(
 		<MockedProvider mocks={mocks} addTypename={false}>
 			<Character characterId={1017100} />
 		</MockedProvider>
 	);
+});
 
-	expect(getCharacter).toHaveBeenCalled();
+test('it calls the graphql server with the provided char id', async () => {
+	const getCharacter = jest.fn();
+
+	const { queryByText, getByValue } = render(
+		<MockedProvider mocks={mocks} addTypename={false}>
+			<Character characterId={1017100} />
+		</MockedProvider>
+	);
+
+	await wait(() =>
+		expect(queryByText(/loading\.\.\./i)).not.toBeInTheDocument()
+	);
+
+	// expect(getCharacter).toHaveBeenCalled();
 });

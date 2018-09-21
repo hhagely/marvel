@@ -48,7 +48,8 @@ class Character extends Component {
 					if (error) return <p>Error...</p>;
 					debugger;
 					console.log(data);
-					return <div>{JSON.stringify(data)}</div>;
+					// return <div>{JSON.stringify(data)}</div>;
+					return <div>Finished loading data!</div>;
 				}}
 			</Query>
 		);
