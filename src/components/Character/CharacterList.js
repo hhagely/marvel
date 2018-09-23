@@ -51,9 +51,9 @@ export default class CharacterList extends Component {
 		};
 	}
 
-	handleRefetch(filter, refetchFunction) {
+	handleRefetch(filter, refetchCallback) {
 		this.setState({ nameStartsWith: filter });
-		refetchFunction({ nameStartsWith: filter });
+		refetchCallback({ nameStartsWith: filter });
 	}
 
 	renderCharacters(characters, fetchMore) {
@@ -91,7 +91,7 @@ export default class CharacterList extends Component {
 						grid={{ column: 4 }}
 						dataSource={characters.data.results}
 						renderItem={(item) => (
-							<List.Item key={item.id}>
+							<List.Item key={item.id} data-testid={item.id}>
 								<Card
 									style={{ textAlign: 'center' }}
 									loading={this.state.loading}
@@ -149,7 +149,9 @@ export default class CharacterList extends Component {
 									onFilter={(filter) => this.handleRefetch(filter, refetch)}
 								/>
 							</div>
-							{this.renderCharacters(data.getCharacters, fetchMore)}
+							<div data-testid="character-list">
+								{this.renderCharacters(data.getCharacters, fetchMore)}
+							</div>
 						</div>
 					);
 				}}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { MockedProvider } from 'react-apollo/test-utils';
 
-import { render } from 'react-testing-library';
+import { render, waitForElement, wait } from 'react-testing-library';
 
 import CharacterList, { GET_CHARACTERS_QUERY } from '../CharacterList';
 
@@ -11,7 +11,7 @@ const mocks = [
 			query: GET_CHARACTERS_QUERY,
 			variables: {
 				nameStartsWith: 'A',
-				limit: 20,
+				limit: 5,
 				offSet: 0
 			}
 		},
@@ -101,10 +101,37 @@ const mocks = [
 	}
 ];
 
-test('renders a list of characters', () => {
+test('renders the component', () => {
 	const { debug } = render(
 		<MockedProvider mocks={mocks} addTypename={false}>
 			<CharacterList />
 		</MockedProvider>
 	);
+});
+
+test('calls fetchmore when page number is clicked', async () => {
+	// const fetchMore = jest.fn();
+	// const renderCharacters = jest.fn();
+
+	const { getByTitle, debug, getByTestId } = render(
+		<MockedProvider mocks={mocks} addTypename={false}>
+			<CharacterList nameStartsWith="A" limit={5} offSet={0} />
+		</MockedProvider>
+	);
+
+	// await wait(() => expect(getByTestId('character-list')).toBeInTheDocument());
+
+	const characterList = await waitForElement(() => {
+		getByTestId('character-list');
+	});
+
+	console.log(characterList);
+
+	// debug();
+
+	// await wait(() => expect(renderCharacters.mock.calls.length).toBe(1));
+
+	// const paginationElement = await waitForElement(() => getByTitle('2'));
+
+	// console.log(paginationElement);
 });
