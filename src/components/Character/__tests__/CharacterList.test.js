@@ -109,29 +109,29 @@ test('renders the component', () => {
 	);
 });
 
-test('calls fetchmore when page number is clicked', async () => {
-	// const fetchMore = jest.fn();
-	// const renderCharacters = jest.fn();
+// test('calls fetchmore when page number is clicked', async () => {
+// 	// const fetchMore = jest.fn();
+// 	// const renderCharacters = jest.fn();
 
-	const { getByTitle, debug, getByTestId } = render(
-		<MockedProvider mocks={mocks} addTypename={false}>
-			<CharacterList nameStartsWith="A" limit={5} offSet={0} />
-		</MockedProvider>
-	);
+// 	const { getByTitle, debug, getByTestId } = render(
+// 		<MockedProvider mocks={mocks} addTypename={false}>
+// 			<CharacterList nameStartsWith="A" limit={5} offSet={0} />
+// 		</MockedProvider>
+// 	);
 
-	// await wait(() => expect(getByTestId('character-list')).toBeInTheDocument());
+// 	// await wait(() => expect(getByTestId('character-list')).toBeInTheDocument());
 
-	const characterList = await waitForElement(() => {
-		getByTestId('character-list');
-	});
+// 	const characterList = await waitForElement(() => {
+// 		getByTestId('character-list');
+// 	});
 
-	console.log(characterList);
+// 	console.log(characterList);
 
-	// debug();
+// 	// debug();
 
-	// await wait(() => expect(renderCharacters.mock.calls.length).toBe(1));
+// 	// await wait(() => expect(renderCharacters.mock.calls.length).toBe(1));
 
-	// const paginationElement = await waitForElement(() => getByTitle('2'));
+// 	// const paginationElement = await waitForElement(() => getByTitle('2'));
 
-	// console.log(paginationElement);
-});
+// 	// console.log(paginationElement);
+// });

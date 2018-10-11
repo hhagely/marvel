@@ -8,31 +8,29 @@ import {
 } from '@reach/router';
 import 'jest-dom/extend-expect';
 
+function renderWithRouter(
+	ui,
+	{ route = '/', history = createHistory(createMemorySource(route)) } = {}
+) {
+	return {
+		...render(<LocationProvider history={history}>{ui}</LocationProvider>),
+		history
+	};
+}
+
 test('renders without crashing', () => {
-	let testHistory = createHistory(createMemorySource('/'));
-	const { debug } = render(
-		<LocationProvider history={testHistory}>
-			<App />
-		</LocationProvider>
-	);
+	const { container } = renderWithRouter(<App />);
+
+	expect(container.innerHTML).toMatch('This is the home page');
 });
 
-test('changes selected menu item when clicked', () => {
-	let testHistory = createHistory(createMemorySource('/'));
+test('navigates successfully to another page', () => {
+	const {
+		container,
+		history: { navigate }
+	} = renderWithRouter(<App />);
 
-	const component = (
-		<LocationProvider history={testHistory}>
-			<App />
-		</LocationProvider>
-	);
+	navigate('/characters');
 
-	// const { getByTestId } = render(component);
-
-	// const characterMenuItem = getByTestId('test-characters');
-
-	// expect(getByTestId('test-home')).toHaveClass('ant-menu-item-selected');
-
-	// fireEvent.click(characterMenuItem);
-
-	// expect(getByTestId('test-characters')).toHaveClass('ant-menu-item-selected');
+	expect(container.innerHTML).toMatch('Characters');
 });

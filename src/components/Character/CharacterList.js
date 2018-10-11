@@ -144,6 +144,7 @@ export default class CharacterList extends Component {
 
 					return (
 						<div>
+							<h1>Characters</h1>
 							<div style={nameFilter}>
 								<NameFilter
 									onFilter={(filter) => this.handleRefetch(filter, refetch)}

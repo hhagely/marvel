@@ -60,6 +60,7 @@ class Character extends Component {
 	render() {
 		return (
 			<div>
+				<h1>Character Details</h1>
 				{/* <div>character id: {this.props.characterId}</div> */}
 				{this.getCharacter(this.props.characterId)}
 			</div>
