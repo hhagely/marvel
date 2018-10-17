@@ -51,22 +51,24 @@ class App extends Component {
 						</Menu.Item>
 					</Menu>
 				</Header>
-				<Content>
-					<Router>
-						<Home path="/" default />
-						<CharacterList path="characters" />
-						<Character path="/characters/:characterId" />
-						<ComicList path="/characters/:characterId/comics" />
-						<EventList path="/characters/:characterId/events" />
-						<ComicList path="comics" />
-						<Comic path="/comics/:comicId" />
-						<CharacterList path="/comics/:comicId/characters" />
-						<Event path="/comics/:comicId/event" />
-						<EventList path="events" />
-						<CharacterList path="/events/:eventId/characters" />
-						<ComicList path="/events/:eventId/comics" />
-						<About path="about" />
-					</Router>
+				<Content style={{ padding: '0 50px' }}>
+					<div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
+						<Router>
+							<Home path="/" default />
+							<CharacterList path="characters" />
+							<Character path="/characters/:characterId" />
+							<ComicList path="/characters/:characterId/comics" />
+							<EventList path="/characters/:characterId/events" />
+							<ComicList path="comics" />
+							<Comic path="/comics/:comicId" />
+							<CharacterList path="/comics/:comicId/characters" />
+							<Event path="/comics/:comicId/event" />
+							<EventList path="events" />
+							<CharacterList path="/events/:eventId/characters" />
+							<ComicList path="/events/:eventId/comics" />
+							<About path="about" />
+						</Router>
+					</div>
 				</Content>
 				<Footer style={{ textAlign: 'center' }}>
 					<p>This is the footer</p>

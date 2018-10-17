@@ -49,12 +49,16 @@ class Character extends Component {
 					// return <div>{JSON.stringify(data)}</div>;
 					return (
 						<div>
-							<p>Finished loading data!</p>
+							{this.renderCharacterDetails(data.getCharacter.data.results[0])}
 						</div>
 					);
 				}}
 			</Query>
 		);
+	}
+
+	renderCharacterDetails(characterData) {
+		console.log(characterData);
 	}
 
 	render() {
