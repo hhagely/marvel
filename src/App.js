@@ -26,7 +26,7 @@ class App extends Component {
 	render() {
 		return (
 			<Layout className="layout">
-				<Header style={{ padding: 0 }}>
+				<Header style={styles.headerStyle}>
 					<Menu
 						mode="horizontal"
 						theme="dark"
@@ -51,7 +51,7 @@ class App extends Component {
 						</Menu.Item>
 					</Menu>
 				</Header>
-				<Content style={{ padding: '0 50px' }}>
+				<Content style={styles.contentStyle}>
 					<div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
 						<Router>
 							<Home path="/" default />
@@ -77,5 +77,15 @@ class App extends Component {
 		);
 	}
 }
+
+const styles = {
+	contentStyle: {
+		padding: '0 100px'
+	},
+	headerStyle: {
+		padding: '0 100px',
+		marginBottom: '50px'
+	}
+};
 
 export default App;
